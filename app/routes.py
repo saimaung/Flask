@@ -1,5 +1,6 @@
 # from package import member
 from app import microblogApp
+from flask import render_template
 
 # In Flask, handlers for the application routes are written as Python functions, called view functions.
 # View functions are mapped to one or more route URLs so that Flask knows what logic to execute when a client requests
@@ -16,4 +17,21 @@ from app import microblogApp
 @microblogApp.route('/')
 @microblogApp.route('/index')
 def index():
-    return "Hello World!"
+    user = {'username': 'Sai Wai Maung'}
+    # To represent user posts I'm using a list, where each element is a dictionary that has author and body fields.
+    posts = [
+        {
+            'author': {'username': 'John'},
+            'body': 'Monsoon season in Yangon!'
+        },
+        {
+            'author': {'username': 'Chen'},
+            'body': 'Raptors takes game 3!'
+        }
+    ]
+    # <!---
+    # The only interesting thing in index.html page is that there are a couple of placeholders for the dynamic content,
+    # enclosed in {{ ... }} sections.
+    # These placeholders represent the parts of the page that are variable and will only be known at runtime.
+    # -->
+    return render_template('index.html', title='Sai', user=user, posts=posts)
